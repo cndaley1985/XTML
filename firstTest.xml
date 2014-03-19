@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ac:assessmentChosen xmlns:ac="http://www.assessment.com/students"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.assessment.com/students StudentAssessment.xsd">
+   
+        The professor choose to create a test and not a quiz. 
+        
+        <test topic="Jamaica">
+            <course title="Intro to Jamaica" number="4002-777" department="Foreign Affairs">     
+                <professor professorID="p7555">
+                    <firstName>Terry</firstName>
+                    <lastName>Badger</lastName>
+                    <image>student.jpg</image>
+                </professor>
+                
+                <student studentID="s7777">
+                    <firstName>Courtney</firstName>
+                    <lastName>Daley</lastName>
+                    <image>student.jpg</image>
+                </student>  
+            </course>
+                        
+            <trueOrFalse score="0">
+                <question number="11">Is Usain Bolt the fastest man on earth?</question>
+                <choice correct="yes">True</choice>
+                <choice correct="no"> False</choice>
+            </trueOrFalse>
+            <multipleChoice score="0">
+                <question number="12">What year did Jamaica gain independence?</question>  
+                <choice correct="no">2000</choice>
+                <choice correct="yes">1962</choice>
+                <choice correct="no">1990</choice>
+                <choice correct="no">1950</choice>
+            </multipleChoice>
+            <essay score="0"> 
+                <question number="13">Who is known as the king of reggae and why?</question>
+                <response>Bob Marley, because of his many contributions to the genre of music.</response>
+            </essay>
+      
+        </test>
+</ac:assessmentChosen>

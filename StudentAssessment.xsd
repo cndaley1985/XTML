@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.assessment.com/students"
+    targetNamespace="http://www.assessment.com/students">
+   
+    <!--                 include library                  -->
+    <xs:include schemaLocation="Course.xsd"/>
+        
+    <!--                 simple types                     -->
+    <xs:simpleType name="answerType">
+        <xs:restriction base="xs:string"/>        
+    </xs:simpleType>
+    <xs:simpleType name="questionResponseType">
+        <xs:restriction base="xs:string"/>        
+    </xs:simpleType>
+       
+    <!--                 complex types                    -->
+    <xs:complexType name="questionType" mixed="true">
+        <xs:choice><xs:element name="image" type="xs:string" minOccurs="0"/></xs:choice>
+       <!-- <xs:simpleContent>
+            <xs:extension base="xs:string">-->
+             <xs:attribute name="number" type="xs:positiveInteger" use="required"/>       
+        <!--       </xs:extension>
+        </xs:simpleContent>-->
+    </xs:complexType>
+          
+    <xs:complexType name="choiceType">
+        <xs:annotation>
+            <xs:documentation xml:lang="eng">
+                for use only within the multipleChoiceType
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:string" >
+                <xs:attribute name="correct" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+ 
+    <!--               question Types                   -->
+    <xs:complexType name="multipleChoiceType">
+        <xs:sequence>
+            <xs:element name="question" type="questionType"/>
+            <xs:element name="choice" type="choiceType" minOccurs="2" maxOccurs="4"/>
+        </xs:sequence>
+        <xs:attribute name="score" type="xs:integer" default="0"/>
+    </xs:complexType>
+    
+    <xs:complexType name="trueOrFalseType">
+        <xs:sequence>
+            <xs:element name="question" type="questionType" /> 
+            <xs:element name="choice" type="choiceType" minOccurs="2" maxOccurs="2"/>
+        </xs:sequence>
+        <xs:attribute name="score" type="xs:integer"/>
+    </xs:complexType>
+        
+    <xs:complexType name="fillInTheBlankType" mixed="true">
+        <xs:sequence>
+            <xs:element name="question" type="questionType" />
+            <xs:element name="answer" type="answerType" minOccurs="0"/> 
+        </xs:sequence>
+        <xs:attribute name="score" type="xs:integer" default="0"/>
+    </xs:complexType>
+    
+    <xs:complexType name="essayType">
+        <xs:sequence>
+            <xs:element name="question" type="questionType" /> 
+            <xs:element name="response" type="questionResponseType" minOccurs="0"/> 
+            <xs:element name="answer" type="answerType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="score" type="xs:integer" default="0"/>
+    </xs:complexType>
+    
+    <!--            assessment types               -->
+    <xs:complexType name="quizType">
+        <xs:annotation>
+            <xs:documentation xml:lang="eng">
+                A quiz consist of only multiple choice question
+                some of which are of the true/false type.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="course" type="courseType"/>
+            <xs:element name="trueOrFalse" type="trueOrFalseType" maxOccurs="unbounded" /> 
+            <xs:element name="multipleChoice" type="multipleChoiceType" maxOccurs="unbounded" /> 
+        </xs:sequence>
+        <xs:attribute name="topic" type="xs:string" use="required"/>
+    </xs:complexType>
+    
+    <xs:complexType name="testType">
+        <xs:annotation>
+           <xs:documentation xml:lang="eng">
+            this type extends the quizType by adding two elements fillInTheBlanks and/or essay
+           </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+           <xs:extension base="quizType">
+              <xs:choice>
+                <xs:element name="fillInTheBlanks" type="fillInTheBlankType" maxOccurs="unbounded" /> 
+                <xs:element name="essay" type="essayType" maxOccurs="unbounded"/> 
+              </xs:choice>      
+           </xs:extension>         
+        </xs:complexContent>   
+     </xs:complexType>
+    
+    <xs:element name="assessmentChosen">
+        <xs:annotation>
+        <xs:documentation xml:lang="eng">
+            This constuct ensures that only a quiz or a test can be created
+        </xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+            <xs:choice>
+                <xs:element name="quiz" type="quizType" /> 
+                <xs:element name="test" type="testType" /> 
+            </xs:choice>
+        </xs:complexType>
+        <xs:unique name="questionID">
+            <xs:annotation>
+                <xs:documentation xml:lang="eng">
+                    To constrain the uniqueness of all quiz questions;
+                    ensuring that a question does not repeat.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="quiz/multipleChoice/question"/>
+            <xs:field xpath="@number"/>
+        </xs:unique> 
+        <xs:unique name="tOFQuestionID">
+            <xs:annotation>
+                <xs:documentation xml:lang="eng">
+                    To constrain the uniqueness of all quiz questions;
+                    ensuring that a question does not repeat.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="quiz/trueOrFalse/question"/>
+            <xs:field xpath="@number"/>
+        </xs:unique>   
+    </xs:element>    
+    
+</xs:schema>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ac:assessmentChosen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ac="http://www.assessment.com/students" xsi:schemaLocation="http://www.assessment.com/students StudentAssessment.xsd">
+   
+   
+    The professor choose to create a quiz and not a test. 
+
+    <quiz topic="Xml Schema">
+        <course title="Intro to XML" number="4002-770" department="IT">
+            <professor professorID="p7555">
+                <firstName>Terry</firstName>
+                 <lastName>Badger</lastName>
+                <image>student.jpg</image>
+            </professor>
+            
+            <student studentID="s7777">
+                <firstName>Courtney</firstName>
+                <lastName>Daley</lastName>
+                <image>student.jpg</image>
+            </student>  
+        </course>
+       
+        <trueOrFalse score="0">
+            <question number="11">Schema docs can enforce uniqueness for attributes and elements?</question>
+            <choice correct="yes">True</choice>
+            <choice correct="no"> False</choice>
+        </trueOrFalse>
+        <multipleChoice score="0">
+            <question number="12">Whish of the following is a compositor?</question>  
+            <choice correct="no">Null</choice>
+            <choice correct="yes">Sequence</choice>
+            <choice correct="no">Unique</choice>
+            <choice correct="no">Key</choice>
+        </multipleChoice> 
+        <multipleChoice score="0">
+            <question number="13">Which is not a compositor?</question>  
+            <choice correct="no">All</choice>
+            <choice correct="no">Sequence</choice>
+            <choice correct="yes">Unique</choice>
+            <choice correct="no">choice</choice>
+        </multipleChoice> 
+    </quiz>
+
+</ac:assessmentChosen>

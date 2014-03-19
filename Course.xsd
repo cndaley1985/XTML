@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" > 
+    <!--                 simple types                     -->
+    <xs:simpleType name="firstNameType">
+        <xs:restriction base="xs:string"/>        
+    </xs:simpleType>
+    <xs:simpleType name="lastNameType">
+        <xs:restriction base="xs:string"/>        
+    </xs:simpleType>
+    <xs:simpleType name="imageType">
+        <xs:restriction base="xs:anyURI"/>        
+    </xs:simpleType>
+    
+    <!--                 complex types                    -->
+    <xs:complexType name="professorType">
+        <xs:sequence>
+            <xs:element name="firstName" type="firstNameType" />
+            <xs:element name="lastName" type="lastNameType" />
+            <xs:element name="image" type="imageType" />
+        </xs:sequence>
+        <xs:attribute name="professorID" type="xs:string" use="required" />
+    </xs:complexType>
+    
+    <xs:complexType name="studentType">
+        <xs:sequence>
+            <xs:element name="firstName" type="firstNameType" />
+            <xs:element name="lastName" type="lastNameType" />
+            <xs:element name="image" type="imageType" />
+        </xs:sequence>
+        <xs:attribute name="studentID" type="xs:string" use="required" />
+    </xs:complexType>
+    
+    <xs:complexType name="courseType">
+           <xs:sequence>
+               <xs:element name="professor" type="professorType" /> 
+               <xs:element name="student" type="studentType" />
+           </xs:sequence>
+           <xs:attribute name="title" type="xs:string"/>
+           <xs:attribute name="number" type="xs:string" />
+           <xs:attribute name="department" type="xs:string" />
+    </xs:complexType>
+    
+ </xs:schema>
+
+
